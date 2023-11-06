@@ -1,0 +1,122 @@
+.jumbotron{
+    height: 690px;
+}
+
+.hero-img img{
+    width: 80%;
+}
+
+.circle{
+    position: absolute;
+    left: -8rem;
+    opacity: 0.4;
+    top: 20rem;
+    z-index: -1;
+    filter: blur(2px);
+    transition: 0.3s ease;
+}
+
+.circle-2{
+    position: absolute;
+    opacity: 0.8;
+    top: 5rem;
+    right: 15rem;
+    z-index: -1;
+    filter: blur(2px);
+    transition: 0.3s ease;
+}
+
+.circle-3{
+    position: absolute;
+    opacity: 0.4;
+    right: -5rem;
+    z-index: -1;
+    filter: blur(2px);
+    transition: 0.3s ease;
+}
+
+.input-group{
+    box-shadow: 0px 1px 28px -10px rgba(0,0,0,0.42);
+    -webkit-box-shadow: 0px 1px 28px -10px rgba(0,0,0,0.42);
+    -moz-box-shadow: 0px 1px 28px -10px rgba(0,0,0,0.42);
+}
+
+.form-control:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    /* border: 1px solid var(--orange); */
+}
+
+.first-section{
+    min-height: 900px;
+}
+
+.genre-list{
+    list-style-type: none;
+}
+
+.genre-list li{
+    display: inline-block;
+    margin: 0px 10px;
+    border-radius: 30px;
+    padding: 15px 30px;
+    transition: 0.2s ease;
+}
+
+.genre-list li:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+    transition: 0.2s ease;
+}
+
+.genre-active{
+    background-color: rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+.book-img img{
+    border-radius: 5px;
+    transition: 0.2s ease;
+    box-shadow: 0px 0px 54px 4px rgba(0,0,0,0.2);
+}
+
+.book-img .btn-img{
+    opacity: 0;
+}
+
+.book-img:hover .btn-img{
+    opacity: 1;
+}
+
+.book-img:hover img{
+    filter: brightness(50%);
+}
+
+.book-img img:hover{
+    cursor: pointer;
+    filter: brightness(50%);
+    transition: 0.2s ease;
+}
+
+.text-title{
+    line-height: 3.3rem;
+}
+
+
+@media(max-width: 768px){
+    .jumbotron-wrapper{
+        flex-direction: column-reverse;
+        position: relative;
+    }
+
+    .hero-img img{
+        opacity: 0.2;
+        position: relative;
+    }
+
+    .text-hero{
+        position: absolute;
+        top: 4rem;
+        z-index: 10;
+    }
+}
