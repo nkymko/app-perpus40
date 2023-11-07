@@ -21,8 +21,11 @@
             <div class="col-md-3">
               <div class="filter">
                 <div class="card mb-3" style="width: 90%">
+                  <div class="card-header">
+                    <p class="card-title">Kategori</p>
+                  </div>
                   <div class="card-body">
-                    <p class="fw-medium">Kategori</p>
+                    
                     @foreach ($genres as $genre)
                       <label class="container-filter">{{ $genre->nama }}
                         <input type="radio" name="radio" value="{{ $genre->slug }}">
@@ -31,41 +34,31 @@
                     @endforeach
                   </div>
                 </div>
-                <div class="input-group mb-3" style="width: 90%">
-                  <input type="text" name="search" class="form-control form-control-lg" id="" >
-                  <span class="input-group-text" id="addon3"">
-                    <button class="btn btn-orange">Search</button>
-                </span>
-                </div>
               </div>
             </div>
 
             <div class="col-md-9 buku">
+              <div class="input-group mb-5" style="width: 100%">
+                <input type="text" placeholder="search.." name="search" class="form-control form-control-lg" id="" >
+                <span class="input-group-text" id="addon3"">
+                  <button class="btn btn-orange" type="submit">Search</button>
+              </span>
+              </div>
               <div class="row row-cols-1 g-4 product">
-                <div class="col-md-4 card-wrapper">
-                  <div class="card h-100">
-                      <img src="{{ asset('img/buku-fiksi.jpeg') }}" class="card-img-top" alt="product-2" />
-                      <div class="card-body">
-                        <h5 class="p-2">Laut Bercerita</h5>
-                      </div>
+                @forelse ($books as $book)
+                  <div class="col-md-4 card-wrapper">
+                    <div class="card h-100">
+                        <img src="{{ asset('img/buku-fiksi.jpeg') }}" class="card-img-top" alt="product-2" />
+                        <div class="card-body">
+                          <h5 class="p-2">Laut Bercerita</h5>
+                        </div>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-4 card-wrapper">
-                  <div class="card h-100">
-                      <img src="{{ asset('img/buku-fiksi.jpeg') }}" class="card-img-top" alt="product-2" />
-                      <div class="card-body">
-                        <h5 class="p-2">Laut Bercerita</h5>
-                      </div>
-                  </div>
-                </div>
-                <div class="col-md-4 card-wrapper">
-                  <div class="card h-100">
-                      <img src="{{ asset('img/buku-fiksi.jpeg') }}" class="card-img-top" alt="product-2" />
-                      <div class="card-body">
-                        <h5 class="p-2">Laut Bercerita</h5>
-                      </div>
-                  </div>
-                </div>
+                @empty
+                    <div class="col-md-12">
+                      <h4 class="text-center fw-light">Tidak ada data buku</h4>
+                    </div>
+                @endforelse
                 <div class="col-md-12 d-flex justify-content-end">
                   <nav aria-label="Page navigation example">
                     <ul class="pagination">

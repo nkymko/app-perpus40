@@ -13,7 +13,7 @@
             <a class="nav-link {{ (Request::is('/') ? 'active' : '') }}" aria-current="page" href="{{ route('home') }}">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ (Request::is('books*') ? 'active' : '') }}" href="{{ route('books.index') }}">Katalog Buku</a>
+            <a class="nav-link {{ (Request::is('book-catalog*') ? 'active' : '') }}" href="{{ route('book-catalog.index') }}">Katalog Buku</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}#panduan">Panduan</a>
@@ -26,8 +26,7 @@
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ auth()->user()->nama }}</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="{{ route('profile.show', auth()->user()->uuid) }}">Profil</a></li>
               <li><a class="dropdown-item" href="#" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
             </ul>

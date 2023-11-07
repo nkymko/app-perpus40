@@ -79,7 +79,7 @@
                 <div class="card" data-aos="fade-up" data-aos-delay="800">
                    <div class="flex-wrap card-header d-flex justify-content-between align-items-center">
                       <div class="header-title">
-                         <h4 class="card-title">$855.8K</h4>
+                         <h4 class="card-title">{{ $counts['checkout'] }}</h4>
                          <p class="mb-0">Peminjaman</p>          
                       </div>
                       <div class="d-flex align-items-center align-self-center">
@@ -116,13 +116,17 @@
                 <div class="overflow-hidden card" data-aos="fade-up" data-aos-delay="600">
                    <div class="flex-wrap card-header d-flex justify-content-between">
                       <div class="header-title">
-                         <h4 class="mb-2 card-title">Baru Saja</h4>
-                         <p class="mb-0">
-                            <svg class ="me-2 text-primary icon-24" width="24"  viewBox="0 0 24 24">
-                               <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
-                            </svg>
-                            15 permintaan pinjam buku
-                         </p>            
+                         @if ($counts['recent_checkout'] > 0)
+                           <h4 class="mb-2 card-title">Baru Saja</h4>
+                           <p class="mb-0">
+                              <svg class ="me-2 text-primary icon-24" width="24"  viewBox="0 0 24 24">
+                                 <path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                              </svg>
+                              {{ $counts['recent_checkout'] }} permintaan pinjam buku
+                           </p>
+                        @else
+                           Tidak ada peminjaman hari ini
+                        @endif
                       </div>
                    </div>
                    <div class="p-0 card-body">
@@ -136,66 +140,24 @@
                                </tr>
                             </thead>
                             <tbody>
+                               @forelse ($checkouts as $checkout)
                                <tr>
-                                  <td>
-                                     <div class="d-flex align-items-center">
-                                        <img class="rounded bg-soft-primary img-fluid avatar-40 me-3" src="{{ asset('template/assets/images/shapes/01.png') }}" alt="profile">
-                                        <h6>Addidis Sportwear</h6>
-                                     </div>
-                                  </td>
-                                  <td>
-                                     <div class="iq-media-group iq-media-group-1">
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">SP</div>
-                                        </a>
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">PP</div>
-                                        </a>
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">MM</div>
-                                        </a>
-                                     </div>
-                                  </td>
-                                  <td>$14,000</td>
-                               </tr>
-                               <tr>
-                                  <td>
-                                     <div class="d-flex align-items-center">
-                                        <img class="rounded bg-soft-primary img-fluid avatar-40 me-3" src="{{ asset('template/assets/images/shapes/05.png') }}" alt="profile">
-                                        <h6>Netflixer Platforms</h6>
-                                     </div>
-                                  </td>
-                                  <td>
-                                     <div class="iq-media-group iq-media-group-1">
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">SP</div>
-                                        </a>
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">PP</div>
-                                        </a>
-                                     </div>
-                                  </td>
-                                  <td>$30,000</td>
-                               </tr>
-                               <tr>
-                                  <td>
-                                     <div class="d-flex align-items-center">
-                                        <img class="rounded bg-soft-primary img-fluid avatar-40 me-3" src="{{ asset('template/assets/images/shapes/02.png') }}" alt="profile">
-                                        <h6>Shopifi Stores</h6>
-                                     </div>
-                                  </td>
-                                  <td>                                 
-                                     <div class="iq-media-group iq-media-group-1">
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">PP</div>
-                                        </a>
-                                        <a href="#" class="iq-media-1">
-                                           <div class="icon iq-icon-box-3 rounded-pill">TP</div>
-                                        </a>
-                                     </div>
-                                  </td>
-                                  <td>$8,500</td>
-                               </tr>
+                                 <td>
+                                    <div class="d-flex align-items-center">
+                                       <img class="rounded bg-soft-primary img-fluid avatar-40 me-3" src="{{ asset('storage/' .$checkouts->user->profpic .'') }}" alt="profile">
+                                       <h6>{{ $checkouts->user->nama }}</h6>
+                                    </div>
+                                 </td>
+                                 <td>
+                                    {{ $checkouts->kode }}
+                                 </td>
+                                 <td>{{ $checkouts->user->no_induk }}</td>
+                              </tr>
+                               @empty
+                                   <tr>
+                                    <td colspan="3" class="text-center">Tidak ada peminjaman</td>
+                                   </tr>
+                               @endforelse
                                
                             </tbody>
                          </table>
@@ -212,45 +174,26 @@
                 <div class="card" data-aos="fade-up" data-aos-delay="600">
                    <div class="flex-wrap card-header d-flex justify-content-between">
                       <div class="header-title">
-                         <h4 class="mb-2 card-title">Aktivitas Terbaru</h4>
+                         <h4 class="mb-2 card-title">Buku Terbaru</h4>
                       </div>
                    </div>
                    <div class="card-body">
-                      <div class="mb-2  d-flex profile-media align-items-top">
-                         <div class="mt-1 profile-dots-pills border-primary"></div>
-                         <div class="ms-4">
-                            <h6 class="mb-1 ">$2400, Purchase</h6>
-                            <span class="mb-0">11 JUL 8:10 PM</span>
-                         </div>
-                      </div>
-                      <div class="mb-2  d-flex profile-media align-items-top">
-                         <div class="mt-1 profile-dots-pills border-primary"></div>
-                         <div class="ms-4">
-                            <h6 class="mb-1 ">New order #8744152</h6>
-                            <span class="mb-0">11 JUL 11 PM</span>
-                         </div>
-                      </div>
-                      <div class="mb-2  d-flex profile-media align-items-top">
-                         <div class="mt-1 profile-dots-pills border-primary"></div>
-                         <div class="ms-4">
-                            <h6 class="mb-1 ">Affiliate Payout</h6>
-                            <span class="mb-0">11 JUL 7:64 PM</span>
-                         </div>
-                      </div>
-                      <div class="mb-2  d-flex profile-media align-items-top">
-                         <div class="mt-1 profile-dots-pills border-primary"></div>
-                         <div class="ms-4">
-                            <h6 class="mb-1 ">New user added</h6>
-                            <span class="mb-0">11 JUL 1:21 AM</span>
-                         </div>
-                      </div>
-                      <div class="mb-1  d-flex profile-media align-items-top">
-                         <div class="mt-1 profile-dots-pills border-primary"></div>
-                         <div class="ms-4">
-                            <h6 class="mb-1 ">Product added</h6>
-                            <span class="mb-0">11 JUL 4:50 AM</span>
-                         </div>
-                      </div>
+                      @forelse ($activities as $activity)
+                        <div class="mb-2  d-flex profile-media align-items-top">
+                           <div class="mt-1 profile-dots-pills border-primary"></div>
+                           <div class="ms-4">
+                              <h6 class="mb-1 ">{{ $activity->judul }}</h6>
+                              <span class="mb-0">{{ $activity->created_at ->diffForHumans()}}</span>
+                           </div>
+                        </div>
+                     @empty
+                        <div class="mb-2  d-flex profile-media align-items-top">
+                           <div class="mt-1 profile-dots-pills border-primary"></div>
+                           <div class="ms-4">
+                              <span class="mb-0">Tidak ada data terbaru</span>
+                           </div>
+                        </div>
+                      @endforelse
                    </div>
                 </div>
              </div>

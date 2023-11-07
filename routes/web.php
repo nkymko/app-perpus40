@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminBookController;
 use App\Http\Controllers\DashboardController;
@@ -28,7 +31,6 @@ Route::middleware(['guest'])->group(function () {
         Route::get('/login', 'index')->middleware('guest');
         Route::get('/auth', 'index')->name('login')->middleware('guest');
         Route::post('/auth', 'authenticate')->name('login.verif')->middleware('guest');
-        Route::post('/logout', 'logout')->name('logout');
     });
 
     // Register Controller
@@ -38,11 +40,16 @@ Route::middleware(['guest'])->group(function () {
     });
 });
 
-// 
-Route::resource('/books', BookController::class);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::resource('/book-catalog', BookController::class)->only(['index', 'show']);
+Route::resource('/checkouts', CheckoutController::class)->only(['store']);
+Route::resource('profile', UserController::class)->only(['show', 'update'])->middleware('auth');
 
 // Admin - Pustakawan Middleware
-Route::middleware(['auth', 'role:admin,pustakawan'])->group(function () {
+Route::middleware(['auth', 'role:admin, pustakawan'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/admin-books', AdminBookController::class);
+    Route::resource('/dashboard/books', AdminBookController::class)->only(['index', 'store', 'update', 'destroy', 'edit']);
+    Route::resource('dashboard/genres', GenreController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::resource('dashboard/checkouts', CheckoutController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('dashboard/users', UserController::class)->only(['index', 'destroy', 'store']);
 });

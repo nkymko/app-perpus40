@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Genre;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 
-class BookController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('books.index', ['genres' => Genre::all(), 'books' => Book::latest()->get()]);
+        //
     }
 
     /**
@@ -28,7 +26,7 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBookRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -36,7 +34,7 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(User $user)
     {
         //
     }
@@ -44,7 +42,7 @@ class BookController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Book $book)
+    public function edit(User $user)
     {
         //
     }
@@ -52,7 +50,7 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBookRequest $request, Book $book)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -60,7 +58,7 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(User $user)
     {
         //
     }

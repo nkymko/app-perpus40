@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'uuid' => Str::uuid(),
             'nama' => 'Administrator',
             'email' => 'admin',
-            'password' => bcrypt('@admin.perpustakaan40'),
+            'password' => bcrypt('@admin'),
             'role' => 'admin',
         ]);
 

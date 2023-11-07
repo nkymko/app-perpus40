@@ -13,7 +13,10 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        return view('administrator.categories.index', [
+            'genres' => Genre::all(),
+            'title' => 'Genre Buku'
+        ]);
     }
 
     /**
@@ -29,7 +32,15 @@ class GenreController extends Controller
      */
     public function store(StoreGenreRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => ['required', 'min: 3']
+        ]);
+
+        $validated['slug'] = strtolower($validated['nama']);
+
+        Genre::create($validated);
+        
+        return redirect()->back();
     }
 
     /**
@@ -53,7 +64,19 @@ class GenreController extends Controller
      */
     public function update(UpdateGenreRequest $request, Genre $genre)
     {
-        //
+        $validated = $request->validate([
+            'nama' => ['required', 'min: 3']
+        ]);
+
+        if ($validated['nama'] === $genre->nama) {
+            return redirect()->back();
+        }
+
+        $validated['slug'] = strtolower($validated['nama']);
+
+        $genre->update($validated);
+        
+        return redirect()->back();
     }
 
     /**
@@ -61,6 +84,7 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return redirect()->back();
     }
 }
