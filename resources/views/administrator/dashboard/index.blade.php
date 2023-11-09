@@ -144,14 +144,14 @@
                                <tr>
                                  <td>
                                     <div class="d-flex align-items-center">
-                                       <img class="rounded bg-soft-primary img-fluid avatar-40 me-3" src="{{ asset('storage/' .$checkouts->user->profpic .'') }}" alt="profile">
-                                       <h6>{{ $checkouts->user->nama }}</h6>
+                                       <img class="rounded bg-soft-primary img-fluid avatar-40 me-3" src="{{ asset('storage/' .$checkout->user->profpic .'') }}" alt="profile">
+                                       <h6>{{ $checkout->user->nama }}</h6>
                                     </div>
                                  </td>
                                  <td>
-                                    {{ $checkouts->kode }}
+                                    {{ $checkout->kode }}
                                  </td>
-                                 <td>{{ $checkouts->user->no_induk }}</td>
+                                 <td>{{ $checkout->user->nomor_induk }}</td>
                               </tr>
                                @empty
                                    <tr>

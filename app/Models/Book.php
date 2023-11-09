@@ -19,6 +19,14 @@ class Book extends Model
     }
 
     /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
+    /**
      * Get the genre of Book
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

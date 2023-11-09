@@ -47,12 +47,14 @@
               <div class="row row-cols-1 g-4 product">
                 @forelse ($books as $book)
                   <div class="col-md-4 card-wrapper">
+                    <a href="{{ route('books.show', $book->uuid) }}" class="text-decoration-none">
                     <div class="card h-100">
-                        <img src="{{ asset('img/buku-fiksi.jpeg') }}" class="card-img-top" alt="product-2" />
+                        <img src="{{ asset('storage/' . $book->cover) }}" class="card-img-top" alt="product-2" style="border-radius: 5px" />
                         <div class="card-body">
-                          <h5 class="p-2">Laut Bercerita</h5>
+                          <h5 class="p-2 text-decoration-none">{{ $book->judul }}</h5>
                         </div>
                     </div>
+                    </a>
                   </div>
                 @empty
                     <div class="col-md-12">

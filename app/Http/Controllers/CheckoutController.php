@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Checkout;
+use App\Models\BookDetail;
+use Illuminate\Support\Str;
 use App\Http\Requests\StoreCheckoutRequest;
 use App\Http\Requests\UpdateCheckoutRequest;
 
@@ -13,7 +15,11 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        //
+        return view('administrator.checkouts.index', [
+            'title' => 'Data Peminjaman',
+            'checkouts' => Checkout::where('arsip', false)->get(),
+            'histories' => Checkout::where('arsip', true)->get()
+            ]);
     }
 
     /**
@@ -29,7 +35,30 @@ class CheckoutController extends Controller
      */
     public function store(StoreCheckoutRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'agreement' => ['required'],
+            'book_id' => ['required']
+        ]);
+
+        $book = BookDetail::where('book_id', $validated['book_id'])
+        ->where(function($query) {
+            $query->where('availibility', true);
+        })
+        ->first();
+        
+        $kode = strtoupper('PM-' . Str::random(4) . '-' . Str::random(2));
+
+        Checkout::create([
+            'kode' => $kode,
+            'user_id' => auth()->user()->uuid,
+            'book_id' => $book->uuid
+        ]);
+
+        $book->update([
+            'availibility' => false
+        ]);
+
+        return redirect(route('users.show', auth()->user()->uuid));
     }
 
     /**

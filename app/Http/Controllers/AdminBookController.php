@@ -61,6 +61,7 @@ class AdminBookController extends Controller
 
         for ($i=1; $i <= intval($request->get('stok')); $i++) { 
             BookDetail::create([
+                'uuid' => Str::uuid(),
                 'book_id' => $validated['uuid'],
                 'serial_num' => 'P40-G' . $validated['genre_id'] . '-B' . $book_id->id . '-S' . $i,
                 'availibility' => true

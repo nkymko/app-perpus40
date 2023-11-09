@@ -25,8 +25,8 @@ class Checkout extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function book(): BelongsTo
+    public function detail(): BelongsTo
     {
-        return $this->belongsTo(Book::class, 'book_id', 'uuid');
+        return $this->belongsTo(BookDetail::class, 'book_id', 'uuid');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -36,7 +37,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('profile.index', [
+            'title' => 'Profile',
+            'user' => $user,   
+        ]);
     }
 
     /**
@@ -52,7 +56,24 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $validated = $request->validate([
+            'nama' => ['required'],
+            'nomor_induk' => ['required'],
+        ]);
+        
+        if ($request->file('profpic')) {
+            $file = $request->file('profpic');
+            $filename = $file->store('prof-pic'); // Store the file
+            $validated['profpic'] = $filename;
+            
+            if ($user->profpic !== 'prof-pic/user.png') {
+                Storage::delete($user->profpic);
+            }
+        }
+
+        $user->update($validated);
+
+        return redirect()->back();
     }
 
     /**

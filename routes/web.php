@@ -41,14 +41,16 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::resource('/book-catalog', BookController::class)->only(['index', 'show']);
+Route::resource('/books', BookController::class)->only(['index', 'show']);
 Route::resource('/checkouts', CheckoutController::class)->only(['store']);
-Route::resource('profile', UserController::class)->only(['show', 'update'])->middleware('auth');
+Route::resource('users', UserController::class)->only(['show', 'update'])->middleware('auth');
 
 // Admin - Pustakawan Middleware
 Route::middleware(['auth', 'role:admin, pustakawan'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('/dashboard/books', AdminBookController::class)->only(['index', 'store', 'update', 'destroy', 'edit']);
+    Route::resource('/dashboard/books', AdminBookController::class, ['names' => [
+        'index' => 'admin-books.index'
+    ]])->only(['index', 'store', 'update', 'destroy', 'edit']);
     Route::resource('dashboard/genres', GenreController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('dashboard/checkouts', CheckoutController::class)->only(['index', 'update', 'destroy']);
     Route::resource('dashboard/users', UserController::class)->only(['index', 'destroy', 'store']);

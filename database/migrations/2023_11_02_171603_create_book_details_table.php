@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('book_details', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->uuid('book_id')->references('uuid')->on('books')->onDelete('cascade');
             $table->string('serial_num');
             $table->boolean('availibility');

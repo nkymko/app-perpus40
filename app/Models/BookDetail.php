@@ -10,6 +10,13 @@ class BookDetail extends Model
 {
     protected $guarded = ['id'];
 
+    protected $primaryKey = 'uuid';
+
+    public function getKeyType()
+    {
+        return 'string';
+    }
+
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class, 'book_id', 'uuid');

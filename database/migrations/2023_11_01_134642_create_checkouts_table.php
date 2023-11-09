@@ -16,9 +16,10 @@ return new class extends Migration
             $table->string('kode')->unique();
             $table->uuid('user_id')->references('uuid')->on('users')->onDelete('cascade');
             $table->uuid('book_id')->references('uuid')->on('books')->onDelete('cascade');
-            $table->date('tenggat');
-            $table->date('waktu_pengembalian');
-            $table->boolean('arsip');
+            $table->date('tenggat')->nullable();
+            $table->date('waktu_pengembalian')->nullable();
+            $table->string('status')->default('pending');
+            $table->boolean('arsip')->default(false);
             $table->timestamps();
         });
     }
